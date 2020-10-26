@@ -1,0 +1,7 @@
+---
+code: |
+  answer = 5 + 2
+---
+question: |
+  The solution is ${ answer }.
+mandatory: True
