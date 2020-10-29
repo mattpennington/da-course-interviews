@@ -1,0 +1,36 @@
+---
+code: |
+  answer = user_answer
+  if answer == 7:
+    outcome = "Correct"
+    restart_label = "Restart"
+  elif answer >= 8:
+    outcome = "wrong - try a smaller number"
+    restart_label = "Try Again"
+  elif answer <= 6:
+    outcome = "wrong - try a bigger number"
+    restart_label = "Try Again"
+  else:
+    outcome = "Incorrect"
+    restart_label = "Try Again"
+---
+code: |
+  suggestions = [5,6,7,8,9]
+---
+question: |
+  What's 5 + 2?
+subquestion: |
+  Why not try some of these options:
+  % for suggestion in suggestions:
+  ${ suggestion },
+  % endfor
+fields:
+  - Answer: user_answer
+    datatype: integer
+    min: 0
+---
+mandatory: True
+question: |
+  Your answer '${ answer }' was ${ outcome }.
+buttons:
+  - ${ restart_label } : restart

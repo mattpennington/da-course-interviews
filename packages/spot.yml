@@ -1,0 +1,14 @@
+question: |
+  What is your legal issue?
+fields:
+  - no label: legal_issue
+    input type: area
+    datatype: spot
+---
+mandatory: True
+question: |
+  % if legal_issue.result == 'Housing':
+  We can help you with that housing issue.
+  % else:
+  Sorry, we don't help with that.
+  % endif

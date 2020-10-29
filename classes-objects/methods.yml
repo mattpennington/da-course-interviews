@@ -1,0 +1,17 @@
+---
+objects:
+  - subject: Individual
+---
+question: Who do we have in custody?
+fields:
+  - Your First Name: subject.name.first
+  - Your Last Name: subject.name.last
+---
+question: |
+  What is the name of ${ subject.possessive('cat') }?
+fields:
+  - Cat's Name: cat_name
+---
+mandatory: True
+question: We have ${ subject.name.first.upper() } ${ subject.name.last } in custody
+subquestion: We are looking after ${ subject.possessive('cat') } ${ cat_name }

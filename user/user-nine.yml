@@ -1,0 +1,11 @@
+---
+question: |
+  How much money do you wish to seek in damages?
+fields:
+  - Money: damages_sought
+    datatype: currency
+help: |
+  If you are not sure how much
+  money to seek in damages - guess.
+mandatory: True
+---

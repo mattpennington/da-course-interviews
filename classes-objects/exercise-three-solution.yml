@@ -1,0 +1,13 @@
+---
+code: |
+  import requests
+  r = requests.get('http://worldclockapi.com/api/json/gmt/now')
+  current_time = as_datetime(r.json()['currentDateTime'])
+---
+mandatory: True
+question: |
+  The time
+subquestion: |
+  According to the World Clock API, the current date in the UK is ${ current_time }.
+
+  In three weeks time it will be: ${ current_time.plus(weeks=3) }.

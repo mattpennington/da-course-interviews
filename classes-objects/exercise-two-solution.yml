@@ -1,0 +1,35 @@
+objects:
+  - team_members: DAList.using(
+      object_type=Individual)
+---
+mandatory: True
+question: |
+  There are ${ team_members.number_as_word() } team members in your list.
+subquestion: |
+  % for team_member in team_members:
+  ${ team_member.salutation() } ${ team_member } - ${ team_member.pronoun_subjective() } is aged ${ italic(team_member.age_in_years()) }.
+  % endfor
+---
+question: |
+  Would you like to add another team member?
+yesno: team_members.there_are_any
+---
+question: |
+  Who would you like to add to your team?
+fields:
+  - First Name: team_members[i].name.first
+  - Last Name: team_members[i].name.last
+  - DOB: team_members[i].birthdate
+    datatype: date
+  - Gender: team_members[i].gender
+    datatype: radio
+    choices:
+      Male: male
+      Female: female
+      Other: other
+---
+question: |
+  Are there more team members you wish to add?
+subquestion: |
+  So far, your team consists of ${ team_members }.
+yesno: team_members.there_is_another

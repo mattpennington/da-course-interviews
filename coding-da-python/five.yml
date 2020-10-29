@@ -1,0 +1,25 @@
+---
+code: |
+  answer = user_answer
+  if answer == 7:
+    outcome = "Correct"
+    restart_label = "Restart"
+  elif answer == 8:
+    outcome = "wrong - but you were so close"
+    restart_label = "Try Again"
+  else:
+    outcome = "Incorrect"
+    restart_label = "Try Again"
+---
+question: |
+  What's 5 + 2?
+fields:
+  - Answer: user_answer
+    datatype: integer
+    min: 0
+---
+mandatory: True
+question: |
+  Your answer '${ answer }' was ${ outcome }.
+buttons:
+  - ${ restart_label } : restart

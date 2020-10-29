@@ -1,0 +1,24 @@
+objects:
+  - shopping: DAList.using(
+      object_type=Individual)
+---
+mandatory: True
+question: |
+  There are ${ shopping.number_as_word() } items on your shopping list.
+subquestion: |
+  The items are ${ shopping }.
+---
+question: |
+  Would you like to add anything to your shopping list?
+yesno: shopping.there_are_any
+---
+question: |
+  What would you like to add to your shopping list?
+fields:
+  - Item: shopping[i].name.first
+---
+question: |
+  Are there more things you need to add?
+subquestion: |
+  So far, the shopping list includes ${ shopping }.
+yesno: shopping.there_is_another

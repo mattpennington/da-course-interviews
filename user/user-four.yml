@@ -1,0 +1,12 @@
+---
+question: |
+  What's your phone number?
+fields:
+  - Phone Number: phone_number
+    datatype: integer
+    minlength: 11
+    maxlength: 11
+---
+question: |
+  Your phone number is ${ phone_number }.
+mandatory: True

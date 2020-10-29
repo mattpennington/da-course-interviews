@@ -1,0 +1,17 @@
+---
+question: |
+  What are your grounds for divorce?
+subquestion: |
+  You can [read more](https://www.gov.uk/divorce)
+  about the various grounds you can use.
+field: divorce_grounds
+default: Unreasonable behaviour
+choices:
+  - Adultery
+  - Unreasonable behaviour
+  - Desertion
+  - Separated for at least 2 years
+  - Separated for at least 5 years
+---
+question: You chose ${ divorce_grounds }
+mandatory: True

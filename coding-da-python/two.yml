@@ -1,0 +1,8 @@
+code: |
+  first_variable = 5
+  second_variable = 2
+  answer = first_variable + second_variable
+---
+question: |
+  The solution is ${ answer }.
+mandatory: True

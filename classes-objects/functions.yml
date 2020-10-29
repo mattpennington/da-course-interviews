@@ -1,0 +1,25 @@
+---
+objects:
+  - subject: Individual
+---
+question: Tell us about you
+fields:
+  - Your First Name: subject.name.first
+  - Your Last Name: subject.name.last
+  - Your Email Address: subject.email
+    datatype: email
+---
+mandatory: True
+code: |
+  email_sent_ok = send_email(to=subject.email, template=notification)
+---
+template: notification
+subject: |
+  Docassemble email to ${ subject.name.first }
+content: |
+  Hi ${ subject.name.first } ${ bold(subject.name.last) }
+
+  This is an e-mail sent from Docassemble.
+---
+mandatory: True
+question: Finished.
