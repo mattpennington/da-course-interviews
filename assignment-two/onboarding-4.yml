@@ -1,0 +1,29 @@
+metadata:
+  title: New Client Onboarding
+  short title: Client Onboarding
+  description: Onboarding tool for new clients
+---
+question: What’s your name?
+fields:
+ - Your Name: client_name
+---
+question: |
+  What's your email address?
+fields:
+  - Email: client_email
+    datatype: email
+---
+question: What's your mobile number?
+fields:
+ - Mobile: client_mobile
+---
+question: Client Information
+mandatory: True
+subquestion: |
+  Client Name: ${ client_name }
+
+
+  Client Email: ${ client_email }
+
+
+  Client Mobile: ${ client_mobile }
