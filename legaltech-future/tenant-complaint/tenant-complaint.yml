@@ -1,0 +1,81 @@
+---
+metadata:
+  title: |
+    Tenant Complaint Letter
+  short title: |
+    Tenant Complaint
+  description: |
+    A letter of complaint addressed to landlord
+  authors:
+    - name: Matthew Pennington
+      organization: Tonic Workflows
+  revision_date: 2021-06-24
+  tags:
+    - Tenant
+    - Landlord
+    - Complaint
+  error help: |
+    We are sorry but an error has occurred.
+    Please email [Matthew Pennington](mailto:workflow@tonic.works) for support.
+  exit url: /
+---
+features:
+  question back button: True
+  navigation back button: False
+  progress bar: True
+---
+question: |
+  Tenant Complaint Letter
+subquestion: |
+  A tool to help you draft a Tenant Complaint Letter.
+field: user_saw_intro
+---
+mandatory: True
+code: |
+  user_saw_intro
+---
+question: Complaint Letter ready to download
+subquestion: |
+  Click on one of the links below to download it. You can make further changes to it offline afterwards.
+attachment:
+  name: Your Tenant Complaint Letter
+  filename: Tenant Complaint Letter
+  docx template file: Tenant_Complaint_Letter.docx
+  valid formats:
+    - pdf
+    - docx
+mandatory: True
+buttons:
+  - Exit: exit
+---
+question: What is the name of your landlord?
+fields:
+   - Landlord Name: landlord_name
+---
+question: Add your Landlord contact details here
+fields:
+   - Landlord contact address: landlord_contact_address
+     input type: area
+   - Landlord email address: landlord_email_address
+   - Landlord contact number: landlord_contact_number
+---
+question: Your address (the Tenant)
+fields:
+  - Tenant Address: tenant_address
+---
+question: |
+  Basis of the complaint
+subquestion: |
+  Please provide a short description of the issue
+fields:
+  - Description: complaint_description
+    input type: area
+---
+question: How would you like the issue to be resolved?
+fields:
+  - Description of solution: solution_description
+    input type: area
+---
+question: Who is signing the letter?
+fields:
+  - Name: signer_name

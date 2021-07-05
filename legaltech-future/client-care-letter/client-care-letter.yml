@@ -1,0 +1,83 @@
+---
+metadata:
+  title: |
+    Client Care Letter Helper
+  short title: |
+    CCL Helper
+  description: |
+    A tool to help people draft a Client Care Letter (CCL).
+  authors:
+    - name: Matthew Pennington
+      organization: Tonic Workflows
+  revision_date: 2021-05-18
+  tags:
+    - CCL
+    - ONBOARDING
+    - CLIENTS
+  error help: |
+    We are sorry but an error has occurred.
+    Please email [Matthew Pennington](mailto:workflow@tonic.works) for support.
+  exit url: /
+---
+features:
+  question back button: True
+  navigation back button: False
+  progress bar: True
+---
+question: |
+  Client Care Letter Helper
+subquestion: |
+  A tool to help you draft a Client Care Letter (CCL).
+field: user_saw_intro
+---
+mandatory: True
+code: |
+  user_saw_intro
+---
+question: CCL ready to download
+subquestion: |
+  Click on one of the links below to download it. You can make further changes to it offline afterwards.
+attachment:
+  name: Your Client Care Letter
+  filename: ccl
+  docx template file: ccl.docx
+  valid formats:
+    - pdf
+    - docx
+mandatory: True
+buttons:
+  - Exit: exit
+---
+question: About the Client
+fields:
+  - Client Name: client_name
+---
+question: |
+  About the Matter
+subquestion: |
+  Please provide a short description of the matter
+fields:
+  - Description: matter_description
+    input type: area
+---
+question: About the Costs
+fields:
+  - Hourly Rate: hourly_rate
+  - Estimated Number of Hours: number_of_hours
+  - Amount of Retainer: retainer_amount
+---
+question: About the Fee Earner
+fields:
+  - Name: fee_earner_name
+  - Email: fee_earner_email
+    datatype: email
+---
+question: Who to Contact, to Issue a Complaint
+fields:
+   - Name: managing_director_name
+   - Email: managing_director_email
+     datatype: email
+---
+question: Who is signing the letter?
+fields:
+  - Name: signer_name
