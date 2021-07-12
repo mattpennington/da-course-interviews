@@ -1,0 +1,25 @@
+objects:
+  - team_members: DAList.using(
+      object_type=Individual)
+---
+mandatory: True
+question: |
+  There are ${ team_members.number_as_word() } team members in your team.
+subquestion: |
+  They are ${ team_members }.
+---
+question: |
+  Would you like to add another team member?
+yesno: team_members.there_are_any
+---
+question: |
+  Who would you like to add to your team?
+fields:
+  - First Name: team_members[i].name.first
+  - Last Name: team_members[i].name.last
+---
+question: |
+  Are there more team members you wish to add?
+subquestion: |
+  So far, your team consists of ${ team_members }.
+yesno: team_members.there_is_another

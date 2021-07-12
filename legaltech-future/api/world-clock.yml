@@ -1,0 +1,12 @@
+---
+code: |
+  import requests
+  r = requests.get('http://worldclockapi.com/api/json/gmt/now')
+  current_time = r.json()['currentDateTime']
+---
+mandatory: True
+question: |
+  The time
+subquestion: |
+  According to the World Clock API, the current time in the UK is:
+  ${ current_time }.

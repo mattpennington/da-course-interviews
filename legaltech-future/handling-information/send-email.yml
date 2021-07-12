@@ -1,0 +1,29 @@
+---
+objects:
+  - subject: Individual
+---
+question: Tell us about you
+fields:
+  - Your First Name: subject.name.first
+  - Your Last Name: subject.name.last
+  - Your Email Address: subject.email
+    datatype: email
+  - Mobile: subject.mobile
+  - DOB: subject.dob
+    datatype: date
+---
+mandatory: True
+code: |
+  email_sent_ok = send_email(to=subject.email, template=notification)
+---
+template: notification
+subject: |
+  New Client: ${ subject.name.first }
+content: |
+  ${ subject.name.first } ${ bold(subject.name.last) }
+  Email: ${ subject.email }
+  Mobile: ${ subject.mobile }
+  DOB: ${ subject.dob }
+---
+mandatory: True
+question: Email sent!

@@ -1,0 +1,172 @@
+---
+metadata:
+  title: |
+    Client Care Letter Helper with Docusign Integration
+  short title: |
+    CCL Helper
+  description: |
+    A tool to help people draft a Client Care Letter (CCL).
+  authors:
+    - name: Matthew Pennington
+      organization: Tonic Workflows
+  revision_date: 2021-07-10
+  tags:
+    - CCL
+    - ONBOARDING
+    - CLIENTS
+  error help: |
+    We are sorry but an error has occurred.
+    Please email [Matthew Pennington](mailto:workflow@tonic.works) for support.
+  exit url: /
+---
+modules:
+  - docassemble.docusign.da_docusign
+---
+features:
+  question back button: True
+  navigation back button: False
+  progress bar: True
+---
+question: |
+  Client Care Letter Helper
+subquestion: |
+  A tool to help you draft a Client Care Letter (CCL).
+field: user_saw_intro
+---
+mandatory: True
+code: |
+  user_saw_intro
+---
+question: CCL ready to download
+field: doc_review
+subquestion: |
+  Click on one of the links below to download the CCL and review it. If you are happy, click continue to send it electronically to the client.
+attachment:
+  name: Your Client Care Letter
+  filename: ccl
+  variable name: ccl
+  docx template file: ccl.docx
+  valid formats:
+    - pdf
+    - docx
+mandatory: True
+---
+question: About the Client
+fields:
+  - Client Name: client_name
+  - Client Email: client_email
+---
+question: |
+  About the Matter
+subquestion: |
+  Please provide a short description of the matter
+fields:
+  - Description: matter_description
+    input type: area
+---
+question: About the Costs
+fields:
+  - Hourly Rate: hourly_rate
+  - Estimated Number of Hours: number_of_hours
+  - Amount of Retainer: retainer_amount
+---
+question: About the Fee Earner
+fields:
+  - Name: fee_earner_name
+  - Email: fee_earner_email
+    datatype: email
+---
+question: Who to Contact, to Issue a Complaint
+fields:
+   - Name: managing_director_name
+   - Email: managing_director_email
+     datatype: email
+---
+question: Who is signing the letter?
+fields:
+  - Name: signer_name
+---
+#This code block is handling the pushing of the document into docusign
+mandatory: True
+code: |
+  doc_review
+  signature_request = DocuSign()
+  data_sent, data_received, status_code = signature_request.get_signatures(all_recipients,document_bundle,send_immediately=True,email_subject="Important: Please sign your CCL")
+  if status_code == 201:
+    signature_success
+  else:
+    signature_fail
+---
+question: Document sent successfully to Docusign for Signature
+event: signature_success
+subquestion: |
+  <p><b>Your document has been sent to Docusign.</b></p>
+  <p>The client has been notified to start the signatory process.</p>
+  <p>The person who needs to check the document over will receive a notification once the client has signed it.</p>
+  <p>If you need to check the status of the document you can review it through Docusign at any time.</p>
+buttons:
+  - Exit: exit
+---
+question: Attempt to Send document For Signature Not Successful
+event: signature_fail
+subquestion: |
+  The data that was sent to the server is:
+
+  ${ data_sent }
+
+  The data returned from the server is:
+
+  ${ data_received }
+
+  The status code of message returned from the server is:
+
+  ${ status_code }
+---
+#this code block sets up the content of the Docusign payload
+code: |
+  tabXPosition = 222
+  tabYPosition = 500
+  all_recipients = []
+  #add the signatory
+  signatoryDeedText = 'Signed by ' + client_name.upper()
+  signatory = {}
+  signatory['name'] = client_name
+  signatory['email'] = client_email
+  signatory['group'] = 'signers'
+  signatory['routingOrder'] = 1
+  signatory['tabs'] = [
+  {
+    'type': 'text',
+    'tabLabel': generate_anchor('text', client_name),
+    'value': signatoryDeedText,
+    'locked': 'true',
+    'xPosition': tabXPosition,
+    'yPosition': tabYPosition,
+    'documentId': '1',
+    'pageNumber': '1'
+  },
+  {
+    'type': 'signHere',
+    'xPosition': tabXPosition + 230,
+    'yPosition': tabYPosition - 33,
+    'documentId': '1',
+    'pageNumber': '1'
+  }
+  ]
+  all_recipients.append(signatory)
+  #send a copy to the fee earner
+  new_recipient = {}
+  new_recipient['name'] = fee_earner_name
+  new_recipient['email'] = fee_earner_email
+  new_recipient['group'] = 'certifiedDeliveries'
+  new_recipient['routingOrder'] = 2
+  all_recipients.append(new_recipient)
+
+  document_bundle=[
+        {
+            'name': "Client Care Letter",
+            'fileExtension': 'pdf',
+            'documentBase64': make_document_base64(ccl.pdf.path())
+        }
+  ]
+---
