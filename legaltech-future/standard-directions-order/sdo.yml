@@ -1,0 +1,54 @@
+---
+metadata:
+  title: |
+    Standard Directions Order Helper
+  short title: |
+    SDO
+  description: |
+    A tool to help someone complete an SDO without legal assistance
+  authors:
+    - name: Matthew Pennington
+      organization: Tonic Workflows
+    - name: Amelia Davies
+      organization: Anson Evaluate
+  revision_date: 2021-07-13
+  tags:
+    - SDO
+    - HMCTS
+---
+features:
+  question back button: True
+  navigation back button: False
+  progress bar: True
+---
+field: intro_screen
+question: |
+  Standard Directions Order Helper
+subquestion: |
+    <p>This helper has been created to help someone generate a Standard Direction Order quickly and easily.</p>
+    <p>The example used here is simpilfied SDO, created for teaching purposes only and should not be sent to a client :-)</p>
+buttons:
+  - Start: continue
+---
+include:
+  - sdo-questions.yml
+  - courts.yml
+---
+question: |
+  Your Standard Directions Order is now available to download
+subquestion: |
+  <p>Please note:</p>
+  <ul>
+     <li>The form is not saved on our website, therefore please download it and keep it somewhere safe.</li>
+  </ul>
+attachment:
+  name: Completed SDO
+  filename: standard-directions-order
+  docx template file: sdo.docx
+  valid formats:
+    - pdf
+    - docx
+buttons:
+  - Exit: exit
+mandatory: True
+---

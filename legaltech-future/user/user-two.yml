@@ -1,0 +1,25 @@
+---
+initial: True
+code: |
+  set_language(language)
+---
+question: |
+  What's your name?
+fields:
+  - Name: person_name
+---
+language: fr
+question: |
+  Comment vous-appelez vous?
+fields:
+  - Nom: person_name
+---
+question: |
+  What language do you speak?
+field: language
+choices:
+  - English: en
+  - Français: fr
+---
+question: Your name is ${ person_name }
+mandatory: True

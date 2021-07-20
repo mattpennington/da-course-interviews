@@ -1,0 +1,108 @@
+################# CONTROLLER #################
+#we are using this code block to control the flow of the interview
+mandatory: True
+code: |
+  intro_screen
+  court_name
+  case_number
+  judge_gender
+  track_type
+  defendant_name
+  claimant_name
+  order_transfer
+  if order_consolidation:
+    claim_number
+  order_adr
+  order_stay
+  order_cmc
+  if order_preliminary:
+    preliminary_issue_c_d
+  order_cost_management
+  order_document_retention
+################# ORDER INFO (TOP BOX) #################
+---
+question: |
+  What is the case number?
+fields:
+  - Claim number: case_number
+    datatype: text
+  - note: |
+      The number the case has been assigned
+---
+question: |
+  What is the name of the judge?
+fields:
+  - Judge Title: judge_gender
+    choices:
+    - His
+    - Her
+  - Judge: judge_name
+    datatype: text
+  - note: |
+      The name of the judge
+---
+question: |
+    Which track does the claim fall under?
+fields:
+  - Track Type: track_type
+    choices:
+    - Small Claims Track
+    - Fast Claims Track
+    - Multi Claims Track
+---
+################# CLAIMANT AND DEFENDANT INFO #################
+---
+question: |
+    What is the name of the Defendant?
+fields:
+  - Defendant: defendant_name
+---
+question: |
+    What is the name of the Claimant?
+fields:
+  - Claimant: claimant_name
+---
+################# SELECT APPROPRIATE ORDERS #################
+---
+question: |
+  Is there a transfer order?
+yesno: order_transfer
+---
+question: |
+  Is there a consolidation order?
+yesno: order_consolidation
+---
+question: |
+    What is your claim number?
+fields:
+  - Claim number: claim_number
+---
+question: |
+  Is there an ADR order?
+yesno: order_adr
+---
+question: |
+  Is there a stay order?
+yesno: order_stay
+---
+question: |
+  Is there a CMC order?
+yesno: order_cmc
+---
+question: |
+  Is there a preliminary issue order?
+yesno: order_preliminary
+---
+question: |
+    Please provide a preliminary description of the issue between the Claimant and the Defendant
+fields:
+  - Preliminary issue: preliminary_issue_c_d
+---
+question: |
+  Is there a cost management order?
+yesno: order_cost_management
+---
+question: |
+  Is there a document retention order?
+yesno: order_document_retention
+---

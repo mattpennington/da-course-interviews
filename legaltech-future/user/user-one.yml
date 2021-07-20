@@ -1,0 +1,16 @@
+code: |
+  first_variable = 5
+  second_variable = 2
+  answer = first_variable + second_variable
+---
+question: |
+  What's 5 + 2?
+fields:
+  - Answer: answer
+    datatype: integer
+    min: 7
+    max: 7
+---
+question: |
+  The solution is ${ answer }.
+mandatory: True

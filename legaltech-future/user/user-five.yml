@@ -1,0 +1,14 @@
+---
+question: |
+  What's your phone number?
+fields:
+  - Phone Number: phone_number
+    datatype: text
+validation code: |
+  phone_number = re.sub("[^0-9]", "", phone_number)
+  if len(phone_number) != 11:
+    validation_error("The phone number must contain 11 digits")
+---
+question: |
+  Your phone number is ${ phone_number }.
+mandatory: True

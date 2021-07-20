@@ -1,0 +1,21 @@
+mandatory: True
+code: |
+  set_live_help_status(availability='available',mode='help',partner_roles='advocate')
+---
+question: |
+  How much money do you wish to seek in damages?
+subquestion: |
+  % if chat_partners_available('advocate').help > 0:
+  An advisor is available to assist you.
+  % else:
+  No advisors are available to assist
+  you at this time.
+  % endif
+fields:
+  - Money: damages_sought
+    datatype: currency
+help: |
+  If you are not sure how much
+  money to seek in damages - guess.
+mandatory: True
+---
