@@ -1,0 +1,91 @@
+---
+metadata:
+  title: |
+    Claim Response (N9D) Helper
+  short title: |
+    N9D
+  description: |
+    A tool to help Litigants in Person complete an N9D form without legal assistance
+  authors:
+    - name: Team Name Here
+      organization: Tonic Workflows
+  revision_date: 2021-07-20
+  tags:
+    - LIP
+    - N9D
+    - HMCTS
+---
+features:
+  question back button: True
+  navigation back button: False
+  progress bar: True
+---
+question: |
+  Claim Response (N9D) Helper
+subquestion: |
+    <p>This helper has been created to help someone who doesn't have legal representation (a Litigant in Person) complete a response to a claim for an unspecified amount (or non money claim) against them using <a href="https://www.gov.uk/government/publications/form-N9D-defence-counterclaim-specified-amount" target="_blank">Form N9D</a>.
+    <p>In order to use this tool you will need the following information before continuing:</p>
+    <ul>
+       <li>A copy of the claim against you, showing the <b>claim number, and details of the claimant and defendant (along with any reference numbers)</b></li>
+       <li>....more guidance</li>
+    </ul>
+field: user_saw_intro
+mandatory: True
+---
+include:
+  - courts.yml
+---
+question: |
+  Your Claim Response (N9D) is now available to download
+subquestion: |
+  <p>Please note:</p>
+  <ul>
+     <li>The form is not saved on our website, therefore please download it and keep it somewhere safe.</li>
+     <li>Remember to SIGN AND DATE the form before submitting it to the courts</li>
+  </ul>
+attachment:
+  name: Completed N9D
+  filename: n9d-form
+  pdf template file: n9d.pdf
+  fields:
+    - "Text30": ${ court_name.upper() }
+    - "Text31": ${ claim_number.upper() }
+    - "Text32": "claimant"
+    - "Text33": "defendant"
+    - "Text34": "defence"
+    - "Text35": "defence continued"
+    - "Text36": ${ currency(amount_claimed, symbol=u'') }
+    - "Text37": "my claim is for..."
+    - "Text38": "reasons for counterclaim..."
+    #- "Text39": "signature leave out as needs to be wet"
+    - "Text40": "position or office"
+    - "Text41": ${ format_date(today(), format='ddMMyyyy') }
+    - "Text42": "XXXXXXXX"
+    - "Text46": "XXXX XXX XXXX"
+    - "Text43": "address"
+    - "Text47": "YYYY YYY YYYY"
+    - "Text44": "ABC"
+    - "Text45": "123"
+    - "Text48": "XXXXXXX"
+    - "Text49": "xxx@xxx.xx"
+buttons:
+  - Exit: exit
+mandatory: True
+---
+question: |
+  What is the claim number?
+fields:
+  - Claim number: claim_number
+    datatype: text
+  - note: |
+      The number shown on your original claim
+---
+question: |
+  If your claim is for a specific sum of money, how much are you claiming?
+subquestion: |
+  Further explaination of the question could be added here if needed.....
+fields:
+  - Amount: amount_claimed
+    datatype: currency
+    min: 0
+---

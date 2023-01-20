@@ -1,0 +1,116 @@
+---
+metadata:
+  title: |
+    Claim Response (N9B) Helper
+  short title: |
+    N9B
+  description: |
+    A tool to help Litigants in Person complete an N9B form without legal assistance
+  authors:
+    - name: Team Name Here
+      organization: Tonic Workflows
+  revision_date: 2021-07-20
+  tags:
+    - LIP
+    - N9B
+    - HMCTS
+---
+features:
+  question back button: True
+  navigation back button: False
+  progress bar: True
+---
+question: |
+  Claim Response (N9B) Helper
+subquestion: |
+    <p>This helper has been created to help someone who doesn't have legal representation (a Litigant in Person) complete a response to a claim for a specified amount against them using <a href="https://www.gov.uk/government/publications/form-n9b-defence-counterclaim-specified-amount" target="_blank">Form N9B</a>.
+    <p>In order to use this tool you will need the following information before continuing:</p>
+    <ul>
+       <li>A copy of the claim against you, showing the <b>claim number, and details of the claimant and defendant (along with any reference numbers)</b></li>
+       <li>....more guidance</li>
+    </ul>
+field: user_saw_intro
+mandatory: True
+---
+include:
+  - courts.yml
+---
+question: |
+  Your Claim Response (N9B) is now available to download
+subquestion: |
+  <p>Please note:</p>
+  <ul>
+     <li>The form is not saved on our website, therefore please download it and keep it somewhere safe.</li>
+     <li>Remember to SIGN AND DATE the form before submitting it to the courts</li>
+  </ul>
+attachment:
+  name: Completed N9B
+  filename: n9b-form
+  pdf template file: n9b.pdf
+  fields:
+    - "Name of Court": ${ court_name.upper() }
+    - "Claim number": ${ claim_number.upper() }
+    - "Claimant and reference": "claimant+ref"
+    - "Defendant": "defendant"
+
+    # note the weird bug in the PDF when you run this - A value of 'Yes' should put a check in the checkbox,
+    # but sometimes (as shown below) 'No' does it instead!
+    # using https://docassemble.org/docs/fields.html#mconevar might work better and a combo of yesno/noyes
+
+    - "1. Dispute the full amount": ${ dispute_full_amount }
+    - "Admit part of the claim": "No"
+    - "Amount of claim admitted": "XXXXX"
+
+    - "I paid the amount admitted on (date)": "Yes"
+    - "If part paid, the date of payment": "XXXXXXXX"
+    - "form of admission enclosed": "No"
+
+    - "2. Already paid - no": "Yes"
+    - "Already paid - yes": "No"
+    - "If already paid, the amount paid": ${ currency("1000", symbol=u'') }
+    - "If already paid, the date paid": "AAAAAAAA"
+    - "If paid, details": "paid already details..."
+
+    - "3. Defence": "the defence..."
+    - "Defence - continued": "continued defence..."
+    - "4.1 Amount of counterclaim": "XXXXX"
+    - "Counterclaim fee": "XXXXX"
+    - "Nature of the counterclaim": "claim is for..."
+    - "Reasons for making the counterclaim": "reasons for making the counterclaim"
+    #- "the facts stated": ""
+    # this bit could be adapted to allow "5. Signed - I believe" or "The defendant believes" to be crossed out based on having a litigation friend or not
+    - "5. Signed - I believe": ''
+    - "The defendant believes": "-----------------------------"
+    - "I am duly authorised": "--------------------------------------------------------------------------------"
+    #- "Signature box": "signature leave out as needs to be wet"
+    - "Position or office": "position/office"
+    - "Date of signature": ${ format_date(today(), format='ddMMyyyy') }
+    - "Defendant's date of birth": "XXXXXXXXX"
+    - "Phone number": "XXXX XXX XXXX"
+    - "Fax number": "YYYY YYY YYYY"
+    - "Address for notices": "address..."
+    - "Notice address - postcode 1": "ABC"
+    - "Notice address - postcode 2": "123"
+    - "DX number": "XXXXX"
+    - "Email address": "xxx@xxx.xx"
+buttons:
+  - Exit: exit
+mandatory: True
+---
+question: |
+  What is the claim number?
+fields:
+  - Claim number: claim_number
+    datatype: text
+  - note: |
+      The number shown on your original claim
+---
+question: |
+  Do you dispute the full amount claimed as shown on the claim form?
+subquestion: |
+  Further explaination of the question could be added here if needed.....
+field: dispute_full_amount
+buttons:
+  - Yes
+  - No
+---
